@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FocusRoom - CISCE Boards 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== BODY ===== */
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+  background: rgba(2, 6, 23, 0.95);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+}
+
+nav .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav .logo i {
+  font-size: 1.3rem;
+}
+
+nav .links a {
+  margin-left: 1.8rem;
+  text-decoration: none;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+}
+
+nav .links a:hover {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+nav .links a.active {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.1) 0%, transparent 50%);
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #22c55e, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.hero .subtitle {
+  font-size: 1.2rem;
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.hero p {
+  color: #9ca3af;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.hero button {
+  margin-top: 2.5rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #22c55e, #16a34a);
+  color: #020617;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.hero button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 2rem;
+  gap: 2rem;
+}
+
+.dashboard h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #f8fafc;
+}
+
+.dashboard .subheading {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* ===== GOAL CARD ===== */
+.goal-card {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.goal-text {
+  color: #94a3b8;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+.goal-bar {
+  width: 100%;
+  height: 14px;
+  background: #020617;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.goal-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #22c55e, #38bdf8);
+  transition: width 0.5s ease;
+  border-radius: 20px;
+}
+
+.goal-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.goal-controls input {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  outline: none;
+  background: #111827;
+  color: #f8fafc;
+  font-size: 1rem;
+}
+
+.goal-controls input:focus {
+  border-color: #22c55e;
+}
+
+.goal-controls button {
+  background: #22c55e;
+  color: #020617;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.goal-controls button:hover {
+  background: #16a34a;
+}
+
+/* ===== NEW FEATURE 1: SUBJECT TRACKER ===== */
+.subject-tracker {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.subject-tracker h3 {
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.subject-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.subject-item {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+  border-left: 4px solid;
+}
+
+.subject-item:hover {
+  transform: translateY(-3px);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.subject-name {
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.subject-time {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.subject-btn {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.subject-btn:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* ===== NEW FEATURE 2: QUICK NOTES ===== */
+.quick-notes {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.quick-notes h3 {
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.note-input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #374151;
+  background: #111827;
+  color: #f8fafc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  outline: none;
+}
+
+.note-input:focus {
+  border-color: #ec4899;
+}
+
+.notes-list {
+  margin-top: 1.5rem;
+}
+
+.note-item {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #ec4899;
+  position: relative;
+}
+
+.note-item p {
+  color: #e5e7eb;
+  margin-bottom: 0.5rem;
+}
+
+.note-time {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.note-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* ===== TIMER SECTION ===== */
+.timer-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.timer-container {
+  background: rgba(17, 24, 39, 0.8);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.timer-display {
+  font-size: 4.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 1.5rem 0;
+  font-family: 'Courier New', monospace;
+  color: #22c55e;
+  text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.timer-btn {
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.primary-btn {
+  background: #22c55e;
+  color: #020617;
+}
+
+.secondary-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.reset-btn {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.timer-btn:hover {
+  transform: scale(1.05);
+}
+
+.timer-presets {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  padding: 0.6rem 1.2rem;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.preset-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+.preset-btn.active {
+  background: rgba(56, 189, 248, 0.3);
+  border-color: #38bdf8;
+}
+
+/* ===== STUDY ROOMS ===== */
+.study-rooms {
+  background: rgba(17, 24, 39, 0.8);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.rooms-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.room-card {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #22c55e;
+  transition: all 0.3s;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.room-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.room-count {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.room-subject {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.join-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.join-btn:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* ===== FEATURES ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+}
+
+.feature-card {
+  background: rgba(17, 24, 39, 0.8);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #38bdf8;
+}
+
+.feature-card h3 {
+  margin-bottom: 1rem;
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+
+.feature-card p {
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  margin-top: auto;
+  background: rgba(2, 6, 23, 0.95);
+  border-top: 1px solid rgba(30, 41, 59, 0.5);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+footer .quote {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #e5e7eb;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+footer .meta {
+  color: #9ca3b8;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+footer .symbol {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.5rem;
+  color: #22c55e;
+}
+
+footer .boards-info {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+footer .boards-info h4 {
+  color: #38bdf8;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #1e293b;
+  padding: 2.5rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal h3 {
+  margin-bottom: 1.5rem;
+  color: #f8fafc;
+  font-size: 1.5rem;
+}
+
+.modal p {
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.close-modal {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* ===== NOTIFICATION ===== */
+.notification {
+  position: fixed;
+  background: #22c55e;
+  color: #020617;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 1001;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Desktop Notification */
+@media (min-width: 768px) {
+  .notification {
+    bottom: 2rem;
+    right: 2rem;
+  }
+}
+
+/* Mobile Notification */
+@media (max-width: 767px) {
+  .notification {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav .links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  nav .links a {
+    margin-left: 0;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .hero {
+    padding: 3rem 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .timer-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .timer-display {
+    font-size: 3.5rem;
+  }
+  
+  .timer-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .timer-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .subject-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .rooms-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .features {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+  
+  .dashboard {
+    padding: 0 1rem;
+  }
+  
+  .goal-controls {
+    flex-direction: column;
+  }
+  
+  .goal-controls input,
+  .goal-controls button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .timer-display {
+    font-size: 3rem;
+  }
+  
+  .dashboard h2 {
+    font-size: 1.8rem;
+  }
+  
+  .feature-card {
+    padding: 2rem 1rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="logo">
+    <i class="fas fa-brain"></i> FocusRoom
+  </div>
+  <div class="links">
+    <a href="#" class="active">Home</a>
+    <a href="#timer">Timer</a>
+    <a href="#rooms">Study Rooms</a>
+    <a href="#features">Features</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <h1>Focused Study for CISCE Boards 2026</h1>
+  <p class="subtitle">A dedicated space for ICSE & ISC students to study together and achieve academic excellence</p>
+  <p>
+    Join a privacy-first study environment designed specifically for CISCE Board students.  
+    Access focus timers, study rooms, subject resources, and track your progress - all without distractions.
+  </p>
+  <button id="startStudyingBtn">Start Studying Now</button>
+</section>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="dashboard" id="timer">
+  <h2>Focus Dashboard</h2>
+  <p class="subheading">Track your study progress and stay motivated</p>
+  
+  <!-- Daily Goal Card -->
+  <div class="goal-card">
+    <h3><i class="fas fa-bullseye"></i> Daily Study Goal</h3>
+    <p class="goal-text">
+      Goal: <span id="goalHours">4</span> hrs • Completed: <span id="goalDone">0</span> hrs
+    </p>
+    
+    <div class="goal-bar">
+      <div class="goal-fill" id="goalFill"></div>
+    </div>
+    
+    <div class="goal-controls">
+      <input type="number" id="goalInput" min="1" max="12" placeholder="Set hours (1-12)">
+      <button id="setGoalBtn">Set Goal</button>
+    </div>
+  </div>
+  
+  <!-- NEW FEATURE 1: Subject Time Tracker -->
+  <div class="subject-tracker">
+    <h3><i class="fas fa-book-open"></i> Subject Time Tracker</h3>
+    <p style="color: #94a3b8; margin-bottom: 1rem;">Track time spent on each subject</p>
+    <div class="subject-list" id="subjectList">
+      <!-- Subjects will be populated by JavaScript -->
+    </div>
+  </div>
+  
+  <!-- NEW FEATURE 2: Quick Notes -->
+  <div class="quick-notes">
+    <h3><i class="fas fa-sticky-note"></i> Quick Notes</h3>
+    <textarea class="note-input" id="noteInput" placeholder="Jot down important points, formulas, or reminders..."></textarea>
+    <button class="goal-controls button" id="saveNoteBtn" style="width: 100%;">
+      <i class="fas fa-save"></i> Save Note
+    </button>
+    <div class="notes-list" id="notesList">
+      <!-- Notes will be populated by JavaScript -->
+    </div>
+  </div>
+  
+  <!-- Timer and Study Rooms Section -->
+  <div class="timer-section">
+    <div class="timer-container">
+      <h3><i class="fas fa-stopwatch"></i> Study Timer</h3>
+      <div class="timer-display" id="timerDisplay">25:00</div>
+      
+      <div class="timer-controls">
+        <button class="timer-btn primary-btn" id="startTimerBtn">
+          <i class="fas fa-play"></i> Start
+        </button>
+        <button class="timer-btn secondary-btn" id="pauseTimerBtn">
+          <i class="fas fa-pause"></i> Pause
+        </button>
+        <button class="timer-btn reset-btn" id="resetTimerBtn">
+          <i class="fas fa-redo"></i> Reset
+        </button>
+      </div>
+      
+      <div class="timer-presets">
+        <button class="preset-btn active" data-minutes="25">Pomodoro (25 min)</button>
+        <button class="preset-btn" data-minutes="50">Deep Focus (50 min)</button>
+        <button class="preset-btn" data-minutes="15">Short Break (15 min)</button>
+        <button class="preset-btn" data-minutes="5">Quick Break (5 min)</button>
+      </div>
+      
+      <div style="margin-top: 2rem; text-align: center;">
+        <p id="timerStatus">Ready to start your study session</p>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">
+          Sessions: <span id="sessionCount">0</span> | Total Focus: <span id="totalTime">00:00</span>
+        </p>
+      </div>
+    </div>
+    
+    <div class="study-rooms" id="rooms">
+      <h3><i class="fas fa-users"></i> Live Study Rooms</h3>
+      <p style="color: #94a3b8; margin-bottom: 1.5rem;">Join other CISCE students studying right now</p>
+      
+      <div class="rooms-container" id="roomsContainer">
+        <!-- Rooms will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <div class="feature-card">
+    <div class="feature-icon">
+      <i class="fas fa-stopwatch"></i>
+    </div>
+    <h3>Focus Timer</h3>
+    <p>Customizable Pomodoro timer with session tracking. Optimize your study intervals for maximum retention.</p>
+  </div>
+
+  <div class="feature-card">
+    <div class="feature-icon">
+      <i class="fas fa-users"></i>
+    </div>
+    <h3>Study Rooms</h3>
+    <p>Join subject-specific rooms with other CISCE students. Study together in silence with progress tracking.</p>
+  </div>
+
+  <div class="feature-card">
+    <div class="feature-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <h3>Privacy First</h3>
+    <p>No screen tracking, no data mining. Your study sessions remain completely private and secure.</p>
+  </div>
+  
+  <div class="feature-card">
+    <div class="feature-icon">
+      <i class="fas fa-chart-line"></i>
+    </div>
+    <h3>Progress Tracking</h3>
+    <p>Track your daily study hours, subject-wise progress, and set goals for CISCE Boards 2026 preparation.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="boards-info">
+    <h4>Dedicated to CISCE Boards 2026</h4>
+    <p>ICSE (Class 10) & ISC (Class 12) students can use this platform for focused preparation and collaborative study sessions.</p>
+  </div>
+  
+  <p class="quote">"The secret of getting ahead is getting started." — Mark Twain</p>
+  
+  <div class="meta">
+    <p style="font-style: italic; margin-bottom: 0.5rem;">"I don't follow the universe — I reprogram it."</p>
+    © 2026 Anish Kushwaha • All rights reserved<br>
+  </div>
+
+  <div class="symbol">
+    ⚚Ⓐ⚚
+  </div>
+</footer>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="welcomeModal">
+  <div class="modal-content">
+    <h3>Welcome to FocusRoom for CISCE 2026!</h3>
+    <p>This platform is designed specifically for ICSE (Class 10) and ISC (Class 12) students preparing for the 2026 board exams.</p>
+    <p>Here you can:</p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #94a3b8;">
+      <li>Use the Pomodoro timer for focused study sessions</li>
+      <li>Join study rooms with other CISCE students</li>
+      <li>Track your daily study progress</li>
+      <li>Access subject-specific resources</li>
+    </ul>
+    <p>Good luck with your preparation! Start by setting a timer for your first study session.</p>
+    <button class="close-modal" id="closeModalBtn">Get Started</button>
+  </div>
+</div>
+
+<!-- ===== NOTIFICATION ===== -->
+<div class="notification" id="notification">
+  Timer completed! Take a short break.
+</div>
+
+<script>
+// ===== FIXED CORE TIMER LOGIC =====
+let timerInterval;
+let timeLeft = 25 * 60; // 25 minutes in seconds
+let isRunning = false;
+let totalSeconds = 0;
+let sessionCount = 0;
+
+// DOM Elements
+const timerDisplay = document.getElementById('timerDisplay');
+const startTimerBtn = document.getElementById('startTimerBtn');
+const pauseTimerBtn = document.getElementById('pauseTimerBtn');
+const resetTimerBtn = document.getElementById('resetTimerBtn');
+const presetBtns = document.querySelectorAll('.preset-btn');
+const timerStatus = document.getElementById('timerStatus');
+const sessionCountEl = document.getElementById('sessionCount');
+const totalTimeEl = document.getElementById('totalTime');
+const notification = document.getElementById('notification');
+const roomsContainer = document.getElementById('roomsContainer');
+
+// ===== DAILY STUDY GOAL =====
+const goalHoursEl = document.getElementById("goalHours");
+const goalDoneEl = document.getElementById("goalDone");
+const goalFillEl = document.getElementById("goalFill");
+const goalInput = document.getElementById("goalInput");
+const setGoalBtn = document.getElementById("setGoalBtn");
+
+let dailyGoal = parseFloat(localStorage.getItem("dailyGoal")) || 4;
+goalHoursEl.textContent = dailyGoal;
+
+function updateGoal() {
+  const hoursDone = (totalSeconds / 3600).toFixed(1);
+  goalDoneEl.textContent = hoursDone;
+  
+  const percent = Math.min((hoursDone / dailyGoal) * 100, 100);
+  goalFillEl.style.width = percent + "%";
+}
+
+setGoalBtn.addEventListener("click", () => {
+  const value = parseFloat(goalInput.value);
+  if (!value || value <= 0 || value > 12) return;
+  
+  dailyGoal = value;
+  localStorage.setItem("dailyGoal", dailyGoal);
+  goalHoursEl.textContent = dailyGoal;
+  updateGoal();
+  
+  // Show notification
+  showNotification(`Daily goal set to ${value} hours!`);
+});
+
+// ===== NEW FEATURE 1: SUBJECT TRACKER =====
+const subjectList = document.getElementById('subjectList');
+const subjects = [
+  { id: 1, name: "Mathematics", color: "#3b82f6", time: 0 },
+  { id: 2, name: "English", color: "#22c55e", time: 0 },
+  { id: 3, name: "Physics", color: "#ef4444", time: 0 },
+  { id: 4, name: "Chemistry", color: "#ec4899", time: 0 },
+  { id: 5, name: "Computer Science", color: "#8b5cf6", time: 0 },
+  { id: 6, name: "History", color: "#f59e0b", time: 0 }
+];
+
+// Load saved subject times
+const savedSubjects = localStorage.getItem('focusroom-subjects');
+if (savedSubjects) {
+  const parsed = JSON.parse(savedSubjects);
+  subjects.forEach(subject => {
+    const saved = parsed.find(s => s.id === subject.id);
+    if (saved) subject.time = saved.time;
+  });
+}
+
+function renderSubjects() {
+  subjectList.innerHTML = '';
+  
+  subjects.forEach(subject => {
+    const subjectItem = document.createElement('div');
+    subjectItem.className = 'subject-item';
+    subjectItem.style.borderLeftColor = subject.color;
+    
+    const hours = Math.floor(subject.time / 3600);
+    const minutes = Math.floor((subject.time % 3600) / 60);
+    const timeText = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+    
+    subjectItem.innerHTML = `
+      <div>
+        <div class="subject-name">${subject.name}</div>
+        <div class="subject-time">${timeText}</div>
+      </div>
+      <button class="subject-btn" data-subject="${subject.id}">
+        <i class="fas fa-plus"></i> Add 25min
+      </button>
+    `;
+    
+    subjectList.appendChild(subjectItem);
+  });
+  
+  // Add event listeners
+  document.querySelectorAll('.subject-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const subjectId = parseInt(this.dataset.subject);
+      const subject = subjects.find(s => s.id === subjectId);
+      
+      // Add 25 minutes (1500 seconds)
+      subject.time += 1500;
+      
+      // Update localStorage
+      localStorage.setItem('focusroom-subjects', JSON.stringify(subjects));
+      
+      // Re-render
+      renderSubjects();
+      
+      // Show notification
+      showNotification(`Added 25 minutes to ${subject.name}`);
+    });
+  });
+}
+
+// ===== NEW FEATURE 2: QUICK NOTES =====
+const noteInput = document.getElementById('noteInput');
+const saveNoteBtn = document.getElementById('saveNoteBtn');
+const notesList = document.getElementById('notesList');
+
+let notes = JSON.parse(localStorage.getItem('focusroom-notes')) || [];
+
+function renderNotes() {
+  notesList.innerHTML = '';
+  
+  if (notes.length === 0) {
+    notesList.innerHTML = '<p style="color: #94a3b8; text-align: center;">No notes yet. Add your first note!</p>';
+    return;
+  }
+  
+  // Show latest notes first
+  notes.slice().reverse().forEach((note, index) => {
+    const noteItem = document.createElement('div');
+    noteItem.className = 'note-item';
+    
+    const actualIndex = notes.length - 1 - index;
+    
+    noteItem.innerHTML = `
+      <p>${note.text}</p>
+      <div class="note-time">${note.time}</div>
+      <button class="note-delete" data-index="${actualIndex}">
+        <i class="fas fa-trash"></i>
+      </button>
+    `;
+    
+    notesList.appendChild(noteItem);
+  });
+  
+  // Add delete event listeners
+  document.querySelectorAll('.note-delete').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const index = parseInt(this.dataset.index);
+      notes.splice(index, 1);
+      localStorage.setItem('focusroom-notes', JSON.stringify(notes));
+      renderNotes();
+      showNotification('Note deleted');
+    });
+  });
+}
+
+saveNoteBtn.addEventListener('click', function() {
+  const text = noteInput.value.trim();
+  if (!text) return;
+  
+  const now = new Date();
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+  notes.push({
+    text: text,
+    time: `${time} • ${now.toLocaleDateString()}`
+  });
+  
+  localStorage.setItem('focusroom-notes', JSON.stringify(notes));
+  noteInput.value = '';
+  renderNotes();
+  showNotification('Note saved successfully!');
+});
+
+// Enter key to save note
+noteInput.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'Enter') {
+    saveNoteBtn.click();
+  }
+});
+
+// ===== NOTIFICATION FUNCTION =====
+function showNotification(message) {
+  notification.textContent = message;
+  notification.style.display = 'block';
+  
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 3000);
+}
+
+// ===== TIMER FUNCTIONS =====
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function updateDisplay() {
+  timerDisplay.textContent = formatTime(timeLeft);
+}
+
+function startTimer() {
+  if (isRunning) return;
+  
+  isRunning = true;
+  timerStatus.textContent = "Focus session in progress...";
+  startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Running';
+  startTimerBtn.disabled = true;
+  
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    totalSeconds++;
+    updateDisplay();
+    updateTotalTimeDisplay();
+    updateGoal();
+    
+    if (timeLeft <= 0) {
+      completeTimer();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (!isRunning) return;
+  
+  clearInterval(timerInterval);
+  isRunning = false;
+  timerStatus.textContent = "Timer paused";
+  startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+  startTimerBtn.disabled = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  
+  // Get active preset
+  const activePreset = document.querySelector('.preset-btn.active');
+  const minutes = parseInt(activePreset.dataset.minutes);
+  timeLeft = minutes * 60;
+  
+  updateDisplay();
+  timerStatus.textContent = "Timer reset. Ready to start.";
+  startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start';
+  startTimerBtn.disabled = false;
+}
+
+function completeTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  
+  // Play sound notification
+  try {
+    const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
+    audio.play().catch(e => console.log("Audio play failed:", e));
+  } catch (e) {
+    console.log("Audio error:", e);
+  }
+  
+  // Show notification
+  showNotification("Timer completed! Take a short break.");
+  
+  // Update session count
+  sessionCount++;
+  sessionCountEl.textContent = sessionCount;
+  
+  timerStatus.textContent = "Session completed! Take a break.";
+  startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start Next';
+  startTimerBtn.disabled = false;
+  
+  // Auto-set to short break if it was a study session
+  const activePreset = document.querySelector('.preset-btn.active');
+  if (activePreset.dataset.minutes === "25" || activePreset.dataset.minutes === "50") {
+    // Set to short break after study session
+    setTimeout(() => {
+      document.querySelector('[data-minutes="5"]').click();
+      startTimer();
+    }, 2000);
+  }
+}
+
+function updateTotalTimeDisplay() {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  totalTimeEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+// ===== STUDY ROOMS LOGIC =====
+const studyRooms = [
+  { id: 1, name: "ICSE Mathematics", subject: "Mathematics", count: 24, color: "#3b82f6" },
+  { id: 2, name: "ICSE English", subject: "English Literature", count: 18, color: "#22c55e" },
+  { id: 3, name: "ICSE Physics", subject: "Physics", count: 16, color: "#ef4444" },
+  { id: 4, name: "ICSE History", subject: "History & Civics", count: 12, color: "#f59e0b" },
+  { id: 5, name: "ICSE Computer Science", subject: "Computer Science", count: 20, color: "#8b5cf6" },
+  { id: 6, name: "ICSE Chemistry", subject: "Chemistry", count: 14, color: "#ec4899" }
+];
+
+function renderStudyRooms() {
+  roomsContainer.innerHTML = '';
+  
+  studyRooms.forEach(room => {
+    const roomCard = document.createElement('div');
+    roomCard.className = 'room-card';
+    roomCard.style.borderLeftColor = room.color;
+    
+    roomCard.innerHTML = `
+      <div class="room-header">
+        <div class="room-title">${room.name}</div>
+        <div class="room-count">${room.count} studying</div>
+      </div>
+      <div class="room-subject">
+        <i class="fas fa-book"></i> ${room.subject}
+      </div>
+      <button class="join-btn" data-room="${room.id}">
+        <i class="fas fa-door-open"></i> Join Room
+      </button>
+    `;
+    
+    roomsContainer.appendChild(roomCard);
+  });
+  
+  // Add event listeners to join buttons
+  document.querySelectorAll('.join-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const roomId = this.dataset.room;
+      const room = studyRooms.find(r => r.id == roomId);
+      
+      // Update room count
+      room.count++;
+      renderStudyRooms();
+      
+      // Show notification
+      showNotification(`Joined ${room.name} room!`);
+      
+      // Update timer status
+      timerStatus.textContent = `Studying in ${room.name} room`;
+    });
+  });
+}
+
+// ===== EVENT LISTENERS =====
+startTimerBtn.addEventListener('click', startTimer);
+pauseTimerBtn.addEventListener('click', pauseTimer);
+resetTimerBtn.addEventListener('click', resetTimer);
+
+// Preset buttons
+presetBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Remove active class from all buttons
+    presetBtns.forEach(b => b.classList.remove('active'));
+    
+    // Add active class to clicked button
+    this.classList.add('active');
+    
+    // Update timer
+    const minutes = parseInt(this.dataset.minutes);
+    timeLeft = minutes * 60;
+    
+    // If timer is not running, update display
+    if (!isRunning) {
+      updateDisplay();
+      timerStatus.textContent = `Timer set to ${minutes} minutes`;
+    }
+  });
+});
+
+// Start Studying button
+document.getElementById('startStudyingBtn').addEventListener('click', function() {
+  // Show welcome modal for first time
+  if (!localStorage.getItem('focusroom-welcome-shown')) {
+    document.getElementById('welcomeModal').style.display = 'flex';
+    localStorage.setItem('focusroom-welcome-shown', 'true');
+  } else {
+    // Otherwise start timer with default preset
+    document.querySelector('.preset-btn.active').click();
+    startTimer();
+  }
+});
+
+// Close modal button
+document.getElementById('closeModalBtn').addEventListener('click', function() {
+  document.getElementById('welcomeModal').style.display = 'none';
+  // Start timer after closing modal
+  document.querySelector('.preset-btn.active').click();
+  startTimer();
+});
+
+// ===== LOAD SAVED STATE =====
+function loadSavedState() {
+  // Load timer state
+  const savedState = localStorage.getItem('focusroom-timer-state');
+  if (savedState) {
+    try {
+      const state = JSON.parse(savedState);
+      timeLeft = state.timeLeft || 25 * 60;
+      isRunning = false; // Don't auto-start timer
+      totalSeconds = state.totalSeconds || 0;
+      sessionCount = state.sessionCount || 0;
+      
+      // Update UI
+      updateDisplay();
+      sessionCountEl.textContent = sessionCount;
+      updateTotalTimeDisplay();
+      updateGoal();
+      
+      // Set active preset
+      if (state.activePreset) {
+        const presetBtn = document.querySelector(`[data-minutes="${state.activePreset}"]`);
+        if (presetBtn) {
+          presetBtns.forEach(b => b.classList.remove('active'));
+          presetBtn.classList.add('active');
+        }
+      }
+    } catch (e) {
+      console.log("Error loading saved state:", e);
+    }
+  }
+}
+
+// ===== INITIALIZE =====
+function initializeApp() {
+  updateDisplay();
+  renderStudyRooms();
+  renderSubjects();
+  renderNotes();
+  updateTotalTimeDisplay();
+  updateGoal();
+  loadSavedState();
+  
+  // Show welcome modal on first visit
+  setTimeout(() => {
+    if (!localStorage.getItem('focusroom-welcome-shown')) {
+      document.getElementById('welcomeModal').style.display = 'flex';
+    }
+  }, 1000);
+}
+
+// Auto-save timer state
+window.addEventListener('beforeunload', function() {
+  const activePreset = document.querySelector('.preset-btn.active');
+  const timerState = {
+    timeLeft,
+    isRunning,
+    totalSeconds,
+    sessionCount,
+    activePreset: activePreset ? activePreset.dataset.minutes : "25"
+  };
+  localStorage.setItem('focusroom-timer-state', JSON.stringify(timerState));
+});
+
+// Add keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  // Space to start/pause (only if not focused on input/textarea)
+  if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+    e.preventDefault();
+    if (isRunning) {
+      pauseTimer();
+    } else {
+      startTimer();
+    }
+  }
+  
+  // R to reset
+  if (e.code === 'KeyR' && !e.target.matches('input, textarea')) {
+    e.preventDefault();
+    resetTimer();
+  }
+  
+  // Escape to close modal
+  if (e.code === 'Escape') {
+    document.getElementById('welcomeModal').style.display = 'none';
+  }
+});
+
+// Add motivational quotes
+const quotes = [
+  "Success is the sum of small efforts, repeated day in and day out.",
+  "Don't watch the clock; do what it does. Keep going.",
+  "The future depends on what you do today.",
+  "The only way to learn mathematics is to do mathematics.",
+  "You don't have to be great to start, but you have to start to be great."
+];
+
+// Rotate quotes every 30 seconds
+setInterval(() => {
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  timerStatus.textContent = `💡 ${randomQuote}`;
+}, 30000);
+
+// Initialize the app
+window.addEventListener('DOMContentLoaded', initializeApp);
+
+// Prevent zoom on mobile
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+});
+
+// Handle touch events for better mobile experience
+document.addEventListener('touchstart', function() {}, {passive: true});
+</script>
+</body>
+</html>''
