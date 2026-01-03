@@ -94,10 +94,10 @@ nav .links a.active {
 
 /* ===== MAIN CONTAINER ===== */
 .main-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem;
-  flex: 1;
+  max-width: 1280px;      /* Slightly smaller = better balance */
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  padding-block: clamp(1rem, 3vw, 2rem);
   width: 100%;
 }
 
@@ -138,7 +138,7 @@ nav .links a.active {
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  width: 100%;
+  width: 95%;
 }
 
 /* ===== CREATE ROOM SECTION ===== */
@@ -150,7 +150,7 @@ nav .links a.active {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 95%;
 }
 
 .create-room-container::before {
@@ -167,14 +167,14 @@ nav .links a.active {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  width: 100%;
+  width: 95%;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 100%;
+  width: 95%;
 }
 
 .form-group label {
@@ -197,7 +197,7 @@ nav .links a.active {
   font-size: 1rem;
   outline: none;
   transition: all 0.3s;
-  width: 100%;
+  width: 95%;
   -webkit-appearance: none;
 }
 
@@ -209,10 +209,14 @@ nav .links a.active {
 }
 
 .form-row {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1.2rem;
-  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .password-group {
@@ -485,7 +489,7 @@ nav .links a.active {
   border: 1px solid rgba(236, 72, 153, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: none;
-  width: 100%;
+  width: 90%;
   margin-bottom: 1.5rem;
 }
 
@@ -873,12 +877,21 @@ footer .boards-info h4 {
   }
   
   /* Rooms Grid */
+ /* Mobile-first */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Desktop upgrade */
+@media (min-width: 900px) {
   .rooms-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
-    margin-bottom: 3rem;
   }
-  
+}
   /* Containers */
   .create-room-container,
   .join-room-container,
@@ -1001,6 +1014,72 @@ footer .boards-info h4 {
     transform: none;
   }
 }
+
+/* ===== ERROR STATES ===== */
+.error-input {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3) !important;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ===== ROOM SEARCH ===== */
+.room-search-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.room-search-input {
+  flex: 1;
+  padding: 0.8rem;
+  background: #111827;
+  border: 2px solid #374151;
+  border-radius: 10px;
+  color: #f8fafc;
+  font-size: 0.95rem;
+}
+
+.room-search-btn {
+  padding: 0.8rem 1.2rem;
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ===== LOADING STATES ===== */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #22c55e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 </head>
 
@@ -1008,15 +1087,16 @@ footer .boards-info h4 {
 
 <!-- ===== NAV ===== -->
 <nav>
-  <div class="logo">
+  <a href="index.html" class="logo">
     <i class="fas fa-brain"></i> FocusRoom
-  </div>
+  </a>
   <div class="links">
-    <a href="index.html">Home</a>
-    <a href="study.html">Timer ⏲️</a>
-    <a href="rooms.html">Study Rooms 🧑🏻‍💻</a>
-    <a href="features.html">Progress 📈</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
+    <a href="#" class="active"><i class="fas fa-users"></i> Rooms</a>
+    <a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a>
+    <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
   </div>
 </nav>
 
@@ -1042,12 +1122,18 @@ footer .boards-info h4 {
         <div class="form-group">
           <label><i class="fas fa-heading"></i> Room Name</label>
           <input type="text" id="roomName" placeholder="e.g., ICSE Physics Study Group" maxlength="50">
+          <div class="error-message" id="roomNameError" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i> Room name must be at least 3 characters
+          </div>
         </div>
         
         <div class="form-row">
           <div class="form-group">
             <label><i class="fas fa-user-graduate"></i> Your Name</label>
             <input type="text" id="creatorName" placeholder="Enter your name" maxlength="30">
+            <div class="error-message" id="creatorNameError" style="display: none;">
+              <i class="fas fa-exclamation-circle"></i> Please enter your name
+            </div>
           </div>
           
           <div class="form-group">
@@ -1130,6 +1216,9 @@ footer .boards-info h4 {
         <div class="form-group">
           <label><i class="fas fa-key"></i> Room ID</label>
           <input type="text" id="joinRoomId" placeholder="Enter room ID (e.g., FOCUS-ABC123)" maxlength="20">
+          <div class="error-message" id="roomIdError" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i> Room not found. Check the ID or create a new room.
+          </div>
         </div>
         
         <div class="form-group">
@@ -1140,16 +1229,36 @@ footer .boards-info h4 {
               <i class="fas fa-eye"></i>
             </button>
           </div>
+          <div class="error-message" id="passwordError" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i> Incorrect password
+          </div>
         </div>
         
         <div class="form-group">
           <label><i class="fas fa-user"></i> Your Name</label>
           <input type="text" id="participantName" placeholder="Enter your name to join" maxlength="30">
+          <div class="error-message" id="participantNameError" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i> Please enter your name
+          </div>
         </div>
         
         <button class="create-btn" id="joinRoomBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
           <i class="fas fa-door-open"></i> JOIN ROOM
         </button>
+      </div>
+      
+      <!-- ROOM SEARCH -->
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(30, 41, 59, 0.5); border-radius: 10px;">
+        <h4 style="color: #f8fafc; margin-bottom: 0.8rem; font-size: 1rem;">
+          <i class="fas fa-search"></i> Find Room by ID
+        </h4>
+        <div class="room-search-container">
+          <input type="text" class="room-search-input" id="roomSearchInput" placeholder="Enter Room ID to check">
+          <button class="room-search-btn" id="roomSearchBtn">
+            <i class="fas fa-search"></i> Check
+          </button>
+        </div>
+        <div id="roomSearchResult" style="margin-top: 0.8rem; font-size: 0.9rem;"></div>
       </div>
       
       <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(30, 41, 59, 0.5); border-radius: 10px;">
@@ -1327,31 +1436,53 @@ function createRoom(roomData) {
   return newRoom;
 }
 
-// Join an existing room
+// Join an existing room - FIXED VERSION (Case-insensitive search)
 function joinRoom(roomId, password, participantName) {
-  const room = rooms.find(r => r.id === roomId);
+  // Convert room ID to uppercase for case-insensitive search
+  const upperCaseId = roomId.toUpperCase();
+  const room = rooms.find(r => r.id === upperCaseId);
+  
   if (!room) {
-    return { success: false, error: 'Room not found' };
+    return { success: false, error: 'Room not found', errorType: 'room_not_found' };
   }
   
   if (room.password && room.password !== password) {
-    return { success: false, error: 'Incorrect password' };
+    return { success: false, error: 'Incorrect password', errorType: 'wrong_password' };
   }
   
   if (room.participants.length >= room.maxParticipants) {
-    return { success: false, error: 'Room is full' };
+    return { success: false, error: 'Room is full', errorType: 'room_full' };
   }
   
   if (!room.participants.includes(participantName)) {
     room.participants.push(participantName);
-    participants[roomId].push(participantName);
+    participants[upperCaseId].push(participantName);
     
     // Add join message
-    addSystemMessage(roomId, `${participantName} joined the room.`);
+    addSystemMessage(upperCaseId, `${participantName} joined the room.`);
     saveRooms();
   }
   
   return { success: true, room: room };
+}
+
+// Search room by ID
+function searchRoomById(roomId) {
+  const upperCaseId = roomId.toUpperCase();
+  const room = rooms.find(r => r.id === upperCaseId);
+  
+  if (room) {
+    return {
+      exists: true,
+      room: room,
+      isPublic: !room.password,
+      participants: room.participants.length,
+      maxParticipants: room.maxParticipants,
+      created: new Date(room.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+  }
+  
+  return { exists: false };
 }
 
 // Add system message
@@ -1461,7 +1592,13 @@ function renderActiveRooms() {
     btn.addEventListener('click', function() {
       const roomId = this.getAttribute('data-room-id');
       document.getElementById('joinRoomId').value = roomId;
-      showNotification('Room ID copied to join form');
+      showNotification(`Room ID "${roomId}" added to join form`, 'success');
+      
+      // Check if room exists and show info
+      const searchResult = searchRoomById(roomId);
+      if (searchResult.exists) {
+        showRoomSearchResult(searchResult);
+      }
     });
   });
 }
@@ -1571,6 +1708,117 @@ function showNotification(message, type = 'success') {
   setTimeout(() => {
     notification.style.display = 'none';
   }, 3000);
+}
+
+// Show room search result
+function showRoomSearchResult(result) {
+  const resultDiv = document.getElementById('roomSearchResult');
+  
+  if (result.exists) {
+    resultDiv.innerHTML = `
+      <div style="color: #22c55e; background: rgba(34, 197, 94, 0.1); padding: 0.8rem; border-radius: 8px; border-left: 3px solid #22c55e;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <strong>Room Found!</strong>
+          <span style="font-size: 0.8rem; color: #94a3b8;">Created at ${result.created}</span>
+        </div>
+        <div style="font-size: 0.9rem;">
+          <div><i class="fas fa-heading"></i> <strong>Name:</strong> ${result.room.name}</div>
+          <div><i class="fas fa-book"></i> <strong>Subject:</strong> ${result.room.subject}</div>
+          <div><i class="fas fa-user-friends"></i> <strong>Participants:</strong> ${result.participants}/${result.maxParticipants}</div>
+          <div><i class="fas fa-lock"></i> <strong>Type:</strong> ${result.isPublic ? 'Public' : 'Private (Password Required)'}</div>
+        </div>
+      </div>
+    `;
+  } else {
+    resultDiv.innerHTML = `
+      <div style="color: #ef4444; background: rgba(239, 68, 68, 0.1); padding: 0.8rem; border-radius: 8px; border-left: 3px solid #ef4444;">
+        <i class="fas fa-exclamation-circle"></i> Room not found.
+        <div style="margin-top: 0.5rem; font-size: 0.85rem;">
+          Possible reasons:
+          <ul style="margin-left: 1rem; margin-top: 0.3rem;">
+            <li>Room ID is incorrect</li>
+            <li>Room was created more than 24 hours ago</li>
+            <li>Room creator deleted the room</li>
+            <li>Check the Active Rooms list or create a new room</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Clear error states
+function clearErrors() {
+  // Remove error classes
+  document.querySelectorAll('.error-input').forEach(el => {
+    el.classList.remove('error-input');
+  });
+  
+  // Hide error messages
+  document.querySelectorAll('.error-message').forEach(el => {
+    el.style.display = 'none';
+  });
+}
+
+// Validate join form
+function validateJoinForm(roomId, participantName) {
+  let isValid = true;
+  clearErrors();
+  
+  const roomIdInput = document.getElementById('joinRoomId');
+  const participantInput = document.getElementById('participantName');
+  
+  if (!roomId.trim()) {
+    roomIdInput.classList.add('error-input');
+    document.getElementById('roomIdError').style.display = 'block';
+    isValid = false;
+  }
+  
+  if (!participantName.trim()) {
+    participantInput.classList.add('error-input');
+    document.getElementById('participantNameError').style.display = 'block';
+    isValid = false;
+  } else if (participantName.trim().length < 2) {
+    participantInput.classList.add('error-input');
+    document.getElementById('participantNameError').textContent = 'Name must be at least 2 characters';
+    document.getElementById('participantNameError').style.display = 'block';
+    isValid = false;
+  }
+  
+  return isValid;
+}
+
+// Validate create form
+function validateCreateForm(roomName, creatorName) {
+  let isValid = true;
+  clearErrors();
+  
+  const roomNameInput = document.getElementById('roomName');
+  const creatorInput = document.getElementById('creatorName');
+  
+  if (!roomName.trim()) {
+    roomNameInput.classList.add('error-input');
+    document.getElementById('roomNameError').textContent = 'Please enter a room name';
+    document.getElementById('roomNameError').style.display = 'block';
+    isValid = false;
+  } else if (roomName.trim().length < 3) {
+    roomNameInput.classList.add('error-input');
+    document.getElementById('roomNameError').style.display = 'block';
+    isValid = false;
+  }
+  
+  if (!creatorName.trim()) {
+    creatorInput.classList.add('error-input');
+    document.getElementById('creatorNameError').style.display = 'block';
+    isValid = false;
+  } else if (creatorName.trim().length < 2) {
+    creatorInput.classList.add('error-input');
+    document.getElementById('creatorNameError').textContent = 'Name must be at least 2 characters';
+    document.getElementById('creatorNameError').style.display = 'block';
+    isValid = false;
+  }
+  
+  return isValid;
 }
 
 // Copy to clipboard
@@ -1714,13 +1962,8 @@ function setupEventListeners() {
     const maxParticipants = document.getElementById('maxParticipants').value;
     const description = document.getElementById('roomDescription').value.trim();
     
-    if (!roomName || !creatorName) {
-      showNotification('Please fill in all required fields', 'error');
-      return;
-    }
-    
-    if (roomName.length < 3) {
-      showNotification('Room name must be at least 3 characters', 'error');
+    // Validate form
+    if (!validateCreateForm(roomName, creatorName)) {
       return;
     }
     
@@ -1758,12 +2001,21 @@ function setupEventListeners() {
   
   // Join room button
   document.getElementById('joinRoomBtn').addEventListener('click', () => {
-    const roomId = document.getElementById('joinRoomId').value.trim().toUpperCase();
+    const roomId = document.getElementById('joinRoomId').value.trim();
     const password = document.getElementById('joinRoomPassword').value.trim();
     const participantName = document.getElementById('participantName').value.trim();
     
-    if (!roomId || !participantName) {
-      showNotification('Please fill in all required fields', 'error');
+    // Validate form
+    if (!validateJoinForm(roomId, participantName)) {
+      return;
+    }
+    
+    // Check if room exists first
+    const searchResult = searchRoomById(roomId);
+    if (!searchResult.exists) {
+      document.getElementById('joinRoomId').classList.add('error-input');
+      document.getElementById('roomIdError').style.display = 'block';
+      showNotification(`Room "${roomId}" not found. Check the ID or create a new room.`, 'error');
       return;
     }
     
@@ -1775,10 +2027,19 @@ function setupEventListeners() {
       document.getElementById('participantName').value = '';
       
       enterChatRoom(result.room, participantName);
-      localStorage.setItem('currentRoomId', roomId);
+      localStorage.setItem('currentRoomId', result.room.id);
       localStorage.setItem('currentParticipant', participantName);
     } else {
-      showNotification(result.error, 'error');
+      // Show specific error
+      if (result.errorType === 'wrong_password') {
+        document.getElementById('joinRoomPassword').classList.add('error-input');
+        document.getElementById('passwordError').style.display = 'block';
+        showNotification('Incorrect password. Please check and try again.', 'error');
+      } else if (result.errorType === 'room_full') {
+        showNotification('This room is full. Please try another room.', 'error');
+      } else {
+        showNotification(result.error, 'error');
+      }
     }
   });
   
@@ -1845,8 +2106,41 @@ function setupEventListeners() {
     btn.addEventListener('click', function() {
       const roomId = this.getAttribute('data-room');
       document.getElementById('joinRoomId').value = roomId;
-      showNotification(`Room ID "${roomId}" added to form`);
+      
+      // Check if room exists
+      const searchResult = searchRoomById(roomId);
+      if (searchResult.exists) {
+        showNotification(`Room ID "${roomId}" added to form. Room is available!`, 'success');
+        showRoomSearchResult(searchResult);
+      } else {
+        showNotification(`Room "${roomId}" doesn't exist yet. Why not create it?`, 'warning');
+      }
     });
+  });
+  
+  // Room search button
+  document.getElementById('roomSearchBtn').addEventListener('click', function() {
+    const roomId = document.getElementById('roomSearchInput').value.trim();
+    if (!roomId) {
+      showNotification('Please enter a Room ID to search', 'warning');
+      return;
+    }
+    
+    const result = searchRoomById(roomId);
+    showRoomSearchResult(result);
+    
+    // If room exists, copy to join form
+    if (result.exists) {
+      document.getElementById('joinRoomId').value = roomId.toUpperCase();
+    }
+  });
+  
+  // Room search on Enter key
+  document.getElementById('roomSearchInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.getElementById('roomSearchBtn').click();
+    }
   });
   
   // Save participant name when typing
@@ -1862,6 +2156,32 @@ function setupEventListeners() {
       localStorage.setItem('lastParticipantName', this.value.trim());
       document.getElementById('participantName').value = this.value.trim();
     }
+  });
+  
+  // Clear errors when user starts typing
+  document.getElementById('joinRoomId').addEventListener('input', function() {
+    this.classList.remove('error-input');
+    document.getElementById('roomIdError').style.display = 'none';
+  });
+  
+  document.getElementById('joinRoomPassword').addEventListener('input', function() {
+    this.classList.remove('error-input');
+    document.getElementById('passwordError').style.display = 'none';
+  });
+  
+  document.getElementById('participantName').addEventListener('input', function() {
+    this.classList.remove('error-input');
+    document.getElementById('participantNameError').style.display = 'none';
+  });
+  
+  document.getElementById('roomName').addEventListener('input', function() {
+    this.classList.remove('error-input');
+    document.getElementById('roomNameError').style.display = 'none';
+  });
+  
+  document.getElementById('creatorName').addEventListener('input', function() {
+    this.classList.remove('error-input');
+    document.getElementById('creatorNameError').style.display = 'none';
   });
   
   // Load last participant name
