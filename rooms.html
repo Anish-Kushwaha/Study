@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Study Rooms | FocusRoom - CISCE Boards 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== BODY ===== */
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ===== NAVBAR (EXACT 2-ROW LAYOUT) ===== */
+nav {
+  background: rgba(2, 6, 23, 0.95);
+  padding: 1rem 1rem 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(34, 197, 94, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LOGO */
+nav .logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+/* LINKS GRID */
+nav .links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 🔥 3 per row */
+  gap: 0.9rem 1.2rem;
+  width: 100%;
+  max-width: 420px;
+  justify-items: center;
+}
+
+/* LINK STYLE */
+nav .links a {
+  text-decoration: none;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.45rem 0.9rem;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+}
+
+/* HOVER */
+nav .links a:hover {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* ACTIVE (Rooms) */
+nav .links a.active {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.18);
+}
+
+/* ===== MAIN CONTAINER ===== */
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  flex: 1;
+  width: 100%;
+}
+
+/* ===== HEADER ===== */
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(56, 189, 248, 0.1) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #22c55e, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.page-header .subtitle {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ===== ROOMS GRID ===== */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* ===== CREATE ROOM SECTION ===== */
+.create-room-container {
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(30, 41, 59, 0.9));
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.create-room-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #22c55e, #38bdf8);
+}
+
+.room-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.form-group label {
+  color: #94a3b8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.9rem;
+  background: #111827;
+  border: 2px solid #374151;
+  border-radius: 10px;
+  color: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.password-group {
+  position: relative;
+  width: 100%;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+}
+
+.create-btn {
+  padding: 1rem;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #020617;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.create-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+}
+
+.room-id-display {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  border-left: 4px solid #22c55e;
+  display: none;
+  width: 100%;
+}
+
+.room-id-display.active {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.room-id-display h4 {
+  color: #f8fafc;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.room-credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.credential-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: rgba(17, 24, 39, 0.7);
+  border-radius: 8px;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .credential-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.credential-label {
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.credential-value {
+  color: #22c55e;
+  font-weight: 700;
+  font-family: monospace;
+  font-size: 1rem;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+/* ===== JOIN ROOM SECTION ===== */
+.join-room-container {
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(30, 41, 59, 0.9));
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+/* ===== ACTIVE ROOMS SECTION ===== */
+.active-rooms-container {
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(30, 41, 59, 0.9));
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.rooms-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.room-card {
+  background: rgba(30, 41, 59, 0.7);
+  padding: 1.2rem;
+  border-radius: 12px;
+  border-left: 4px solid;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.room-card:hover {
+  transform: translateY(-3px);
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.room-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .room-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.room-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f8fafc;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.room-count {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.room-subject {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.room-id {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.join-room-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.join-room-btn:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* ===== CHAT CONTAINER ===== */
+.chat-container {
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(30, 41, 59, 0.9));
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.chat-container.active {
+  display: block;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .chat-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.chat-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.leave-chat-btn {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .leave-chat-btn {
+    width: auto;
+  }
+}
+
+.leave-chat-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.5);
+  border-radius: 3px;
+}
+
+.message {
+  padding: 0.9rem;
+  border-radius: 12px;
+  max-width: 90%;
+  word-wrap: break-word;
+  width: fit-content;
+}
+
+.message.sent {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+}
+
+.message.received {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.1));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+}
+
+.message-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 480px) {
+  .message-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.message-sender {
+  font-weight: 600;
+  color: #f8fafc;
+  font-size: 0.9rem;
+}
+
+.message-time {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.message-content {
+  color: #e5e7eb;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.chat-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .chat-input-container {
+    flex-direction: row;
+  }
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.9rem;
+  background: #111827;
+  border: 2px solid #374151;
+  border-radius: 10px;
+  color: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.chat-input:focus {
+  border-color: #ec4899;
+}
+
+.send-btn {
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, #ec4899, #db2777);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .send-btn {
+    width: auto;
+  }
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+}
+
+/* ===== PARTICIPANTS LIST ===== */
+.participants-container {
+  margin-top: 1.5rem;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 1.2rem;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.participants-title {
+  color: #f8fafc;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.participants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.participant-tag {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.participant-tag.you {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  margin-top: auto;
+  background: rgba(2, 6, 23, 0.95);
+  border-top: 1px solid rgba(30, 41, 59, 0.5);
+  padding: 2rem 1rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+footer .quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #e5e7eb;
+  margin-bottom: 1.2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  font-weight: 300;
+  padding: 0 0.5rem;
+}
+
+footer .meta {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+footer .symbol {
+  margin-top: 1.2rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.5rem;
+  color: #22c55e;
+  font-weight: 300;
+}
+
+footer .boards-info {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 1.5rem auto;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  width: calc(100% - 2rem);
+}
+
+footer .boards-info h4 {
+  color: #38bdf8;
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+}
+
+/* ===== NOTIFICATION ===== */
+.notification {
+  position: fixed;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #020617;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 1001;
+  max-width: 90%;
+  text-align: center;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Desktop Notification */
+@media (min-width: 768px) {
+  .notification {
+    bottom: 2rem;
+    right: 2rem;
+    left: auto;
+    transform: none;
+  }
+}
+
+/* Mobile Notification */
+@media (max-width: 767px) {
+  .notification {
+    top: 5rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+/* ===== DESKTOP ENHANCEMENTS ===== */
+@media (min-width: 768px) {
+  /* Navbar */
+  nav {
+    padding: 1.2rem 2rem;
+  }
+  
+  nav .logo {
+    font-size: 1.6rem;
+  }
+  
+  nav .links {
+    gap: 1.2rem;
+  }
+  
+  nav .links a {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Main Container */
+  .main-container {
+    padding: 2rem;
+  }
+  
+  /* Header */
+  .page-header {
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .page-header h1 {
+    font-size: 3rem;
+  }
+  
+  .page-header .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  /* Rooms Grid */
+  .rooms-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* Containers */
+  .create-room-container,
+  .join-room-container,
+  .active-rooms-container,
+  .chat-container {
+    padding: 2.5rem;
+  }
+  
+  /* Form Layout */
+  .form-row {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+  
+  /* Chat */
+  .chat-messages {
+    height: 400px;
+  }
+  
+  .chat-header {
+    flex-direction: row;
+  }
+  
+  .leave-chat-btn {
+    width: auto;
+  }
+  
+  .chat-input-container {
+    flex-direction: row;
+  }
+  
+  .send-btn {
+    width: auto;
+  }
+  
+  /* Rooms List */
+  .rooms-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .room-header {
+    flex-direction: row;
+  }
+  
+  .credential-item {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rooms-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== SMALL MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 360px) {
+  nav .links a {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .page-header .subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .create-btn,
+  .join-room-btn,
+  .send-btn {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== TOUCH OPTIMIZATIONS ===== */
+@media (hover: none) {
+  .create-btn:hover,
+  .join-room-btn:hover,
+  .send-btn:hover,
+  .leave-chat-btn:hover,
+  .copy-btn:hover {
+    transform: none;
+  }
+  
+  .room-card:hover {
+    transform: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <a href="index.html" class="logo">
+    <i class="fas fa-brain"></i> FocusRoom
+  </a>
+  <div class="links">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
+    <a href="#" class="active"><i class="fas fa-users"></i> Rooms</a>
+    <a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a>
+    <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTAINER ===== -->
+<div class="main-container">
+  
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1><i class="fas fa-users"></i> STUDY ROOMS</h1>
+    <p class="subtitle">Create or join study rooms • Collaborate with CISCE 2026 students • Real-time chat support</p>
+  </div>
+  
+  <!-- CREATE AND JOIN ROOMS -->
+  <div class="rooms-grid">
+    
+    <!-- CREATE ROOM -->
+    <div class="create-room-container">
+      <h2 style="color: #f8fafc; margin-bottom: 1.2rem; font-size: 1.5rem;">
+        <i class="fas fa-plus-circle"></i> Create Study Room
+      </h2>
+      
+      <div class="room-form">
+        <div class="form-group">
+          <label><i class="fas fa-heading"></i> Room Name</label>
+          <input type="text" id="roomName" placeholder="e.g., ICSE Physics Study Group" maxlength="50">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-user-graduate"></i> Your Name</label>
+            <input type="text" id="creatorName" placeholder="Enter your name" maxlength="30">
+          </div>
+          
+          <div class="form-group">
+            <label><i class="fas fa-book"></i> Subject</label>
+            <select id="roomSubject">
+              <option value="Mathematics">Mathematics</option>
+              <option value="Physics">Physics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Biology">Biology</option>
+              <option value="English">English</option>
+              <option value="History">History & Civics</option>
+              <option value="Geography">Geography</option>
+              <option value="Computer">Computer Science</option>
+              <option value="Economics">Economics</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> Room Password (Optional)</label>
+            <div class="password-group">
+              <input type="password" id="roomPassword" placeholder="Leave empty for public room">
+              <button type="button" class="password-toggle" id="passwordToggle">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label><i class="fas fa-user-friends"></i> Max Participants</label>
+            <input type="number" id="maxParticipants" min="2" max="50" value="10">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label><i class="fas fa-info-circle"></i> Room Description</label>
+          <textarea id="roomDescription" rows="3" placeholder="Describe the purpose of this study room..."></textarea>
+        </div>
+        
+        <button class="create-btn" id="createRoomBtn">
+          <i class="fas fa-rocket"></i> CREATE ROOM
+        </button>
+      </div>
+      
+      <!-- ROOM ID DISPLAY -->
+      <div class="room-id-display" id="roomIdDisplay">
+        <h4><i class="fas fa-key"></i> Room Created Successfully!</h4>
+        <div class="room-credentials">
+          <div class="credential-item">
+            <span class="credential-label">Room ID:</span>
+            <span class="credential-value" id="displayRoomId">-</span>
+            <button class="copy-btn" data-target="displayRoomId">
+              <i class="fas fa-copy"></i> Copy
+            </button>
+          </div>
+          <div class="credential-item">
+            <span class="credential-label">Password:</span>
+            <span class="credential-value" id="displayRoomPassword">-</span>
+            <button class="copy-btn" data-target="displayRoomPassword">
+              <i class="fas fa-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+        <p style="color: #94a3b8; margin-top: 1rem; font-size: 0.85rem;">
+          <i class="fas fa-info-circle"></i> Share these credentials with your study partners.
+        </p>
+      </div>
+    </div>
+    
+    <!-- JOIN ROOM -->
+    <div class="join-room-container">
+      <h2 style="color: #f8fafc; margin-bottom: 1.2rem; font-size: 1.5rem;">
+        <i class="fas fa-sign-in-alt"></i> Join Study Room
+      </h2>
+      
+      <div class="room-form">
+        <div class="form-group">
+          <label><i class="fas fa-key"></i> Room ID</label>
+          <input type="text" id="joinRoomId" placeholder="Enter room ID (e.g., FOCUS-ABC123)" maxlength="20">
+        </div>
+        
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Room Password (if private)</label>
+          <div class="password-group">
+            <input type="password" id="joinRoomPassword" placeholder="Enter password if required">
+            <button type="button" class="password-toggle" id="joinPasswordToggle">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Your Name</label>
+          <input type="text" id="participantName" placeholder="Enter your name to join" maxlength="30">
+        </div>
+        
+        <button class="create-btn" id="joinRoomBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+          <i class="fas fa-door-open"></i> JOIN ROOM
+        </button>
+      </div>
+      
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(30, 41, 59, 0.5); border-radius: 10px;">
+        <h4 style="color: #f8fafc; margin-bottom: 0.6rem; font-size: 1rem;">
+          <i class="fas fa-lightbulb"></i> Quick Join Public Rooms
+        </h4>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="copy-btn" style="font-size: 0.85rem;" data-room="FOCUS-MATH-001">
+            <i class="fas fa-calculator"></i> Math Room
+          </button>
+          <button class="copy-btn" style="font-size: 0.85rem;" data-room="FOCUS-PHY-001">
+            <i class="fas fa-atom"></i> Physics Room
+          </button>
+          <button class="copy-btn" style="font-size: 0.85rem;" data-room="FOCUS-CHEM-001">
+            <i class="fas fa-flask"></i> Chemistry Room
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ACTIVE ROOMS -->
+  <div class="active-rooms-container">
+    <h2 style="color: #f8fafc; margin-bottom: 1.2rem; font-size: 1.5rem;">
+      <i class="fas fa-bolt"></i> Active Study Rooms
+    </h2>
+    <p style="color: #94a3b8; margin-bottom: 1.2rem; font-size: 0.95rem;">
+      Join these public rooms or create your own. Rooms automatically close after 24 hours of inactivity.
+    </p>
+    
+    <div class="rooms-list" id="activeRoomsList">
+      <!-- Rooms will be populated by JavaScript -->
+    </div>
+    
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="create-btn" id="refreshRoomsBtn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); padding: 0.9rem 1.5rem;">
+        <i class="fas fa-sync-alt"></i> REFRESH ROOMS LIST
+      </button>
+    </div>
+  </div>
+  
+  <!-- CHAT CONTAINER -->
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+      <div class="chat-title">
+        <i class="fas fa-comments"></i>
+        <span id="chatRoomTitle">Study Room</span>
+        <span id="participantCount" style="font-size: 0.85rem; color: #94a3b8;">(0 participants)</span>
+      </div>
+      <button class="leave-chat-btn" id="leaveChatBtn">
+        <i class="fas fa-sign-out-alt"></i> Leave Room
+      </button>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <!-- Messages will appear here -->
+    </div>
+    
+    <div class="chat-input-container">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here... (Press Enter to send)" maxlength="500">
+      <button class="send-btn" id="sendMessageBtn">
+        <i class="fas fa-paper-plane"></i> Send
+      </button>
+    </div>
+    
+    <div class="participants-container">
+      <h4 class="participants-title">
+        <i class="fas fa-user-friends"></i> Participants in this Room
+      </h4>
+      <div class="participants-list" id="participantsList">
+        <!-- Participants will appear here -->
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="boards-info">
+    <h4>Dedicated to CISCE Boards 2026</h4>
+    <p>ICSE (Class 10) & ISC (Class 12) students can use this platform for focused preparation and collaborative study sessions.</p>
+  </div>
+  
+  <p class="quote">"The secret of getting ahead is getting started." — Mark Twain</p>
+  
+  <div class="meta">
+    <p style="font-style: italic; margin-bottom: 0.5rem;">"I don't follow the universe — I reprogram it."</p>
+    © 2026 Anish Kushwaha • All rights reserved<br>
+  </div>
+
+  <div class="symbol">
+    ⚚Ⓐ⚚
+  </div>
+</footer>
+
+<!-- ===== NOTIFICATION ===== -->
+<div class="notification" id="notification">
+  Room created successfully!
+</div>
+
+<script>
+// ===== GLOBAL VARIABLES =====
+let currentRoom = null;
+let currentParticipant = null;
+let rooms = [];
+let messages = {};
+let participants = {};
+let messageCounter = 0;
+
+// Load saved rooms from localStorage
+function loadRooms() {
+  const savedRooms = localStorage.getItem('focusroom_study_rooms');
+  const savedMessages = localStorage.getItem('focusroom_room_messages');
+  const savedParticipants = localStorage.getItem('focusroom_room_participants');
+  
+  if (savedRooms) {
+    rooms = JSON.parse(savedRooms);
+    // Remove rooms older than 24 hours
+    const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
+    rooms = rooms.filter(room => room.createdAt > twentyFourHoursAgo);
+  }
+  
+  if (savedMessages) {
+    messages = JSON.parse(savedMessages);
+  }
+  
+  if (savedParticipants) {
+    participants = JSON.parse(savedParticipants);
+  }
+}
+
+// Save rooms to localStorage
+function saveRooms() {
+  localStorage.setItem('focusroom_study_rooms', JSON.stringify(rooms));
+  localStorage.setItem('focusroom_room_messages', JSON.stringify(messages));
+  localStorage.setItem('focusroom_room_participants', JSON.stringify(participants));
+}
+
+// Generate unique room ID
+function generateRoomId() {
+  const prefix = 'FOCUS-';
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let id = '';
+  for (let i = 0; i < 6; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return prefix + id;
+}
+
+// Create a new room
+function createRoom(roomData) {
+  const roomId = generateRoomId();
+  const newRoom = {
+    id: roomId,
+    name: roomData.name,
+    subject: roomData.subject,
+    creator: roomData.creator,
+    password: roomData.password || null,
+    maxParticipants: parseInt(roomData.maxParticipants),
+    description: roomData.description || '',
+    createdAt: Date.now(),
+    participants: [roomData.creator],
+    isPublic: !roomData.password
+  };
+  
+  rooms.push(newRoom);
+  messages[roomId] = [];
+  participants[roomId] = [roomData.creator];
+  
+  // Add welcome message
+  addSystemMessage(roomId, `Room "${roomData.name}" created by ${roomData.creator}. Welcome!`);
+  
+  saveRooms();
+  return newRoom;
+}
+
+// Join an existing room
+function joinRoom(roomId, password, participantName) {
+  const room = rooms.find(r => r.id === roomId);
+  if (!room) {
+    return { success: false, error: 'Room not found' };
+  }
+  
+  if (room.password && room.password !== password) {
+    return { success: false, error: 'Incorrect password' };
+  }
+  
+  if (room.participants.length >= room.maxParticipants) {
+    return { success: false, error: 'Room is full' };
+  }
+  
+  if (!room.participants.includes(participantName)) {
+    room.participants.push(participantName);
+    participants[roomId].push(participantName);
+    
+    // Add join message
+    addSystemMessage(roomId, `${participantName} joined the room.`);
+    saveRooms();
+  }
+  
+  return { success: true, room: room };
+}
+
+// Add system message
+function addSystemMessage(roomId, text) {
+  if (!messages[roomId]) messages[roomId] = [];
+  
+  messages[roomId].push({
+    id: messageCounter++,
+    type: 'system',
+    text: text,
+    timestamp: Date.now()
+  });
+  
+  // Keep only last 100 messages
+  if (messages[roomId].length > 100) {
+    messages[roomId] = messages[roomId].slice(-100);
+  }
+  
+  saveRooms();
+}
+
+// Add chat message
+function addChatMessage(roomId, sender, text) {
+  if (!messages[roomId]) messages[roomId] = [];
+  
+  messages[roomId].push({
+    id: messageCounter++,
+    type: 'chat',
+    sender: sender,
+    text: text,
+    timestamp: Date.now()
+  });
+  
+  // Keep only last 100 messages
+  if (messages[roomId].length > 100) {
+    messages[roomId] = messages[roomId].slice(-100);
+  }
+  
+  saveRooms();
+}
+
+// Render active rooms
+function renderActiveRooms() {
+  const roomsList = document.getElementById('activeRoomsList');
+  roomsList.innerHTML = '';
+  
+  const publicRooms = rooms.filter(room => room.isPublic);
+  
+  if (publicRooms.length === 0) {
+    roomsList.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #94a3b8;">
+        <i class="fas fa-door-open" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+        <h3 style="color: #f8fafc; margin-bottom: 0.5rem; font-size: 1.2rem;">No active rooms yet</h3>
+        <p style="font-size: 0.9rem;">Be the first to create a study room!</p>
+      </div>
+    `;
+    return;
+  }
+  
+  // Get subject colors
+  const subjectColors = {
+    'Mathematics': '#3b82f6',
+    'Physics': '#ef4444',
+    'Chemistry': '#ec4899',
+    'Biology': '#22c55e',
+    'English': '#f59e0b',
+    'History': '#8b5cf6',
+    'Geography': '#06b6d4',
+    'Computer': '#6366f1',
+    'Economics': '#f97316',
+    'Commerce': '#14b8a6',
+    'Other': '#94a3b8'
+  };
+  
+  publicRooms.forEach(room => {
+    const color = subjectColors[room.subject] || '#94a3b8';
+    const participantCount = room.participants.length;
+    
+    const roomCard = document.createElement('div');
+    roomCard.className = 'room-card';
+    roomCard.style.borderLeftColor = color;
+    
+    roomCard.innerHTML = `
+      <div class="room-header">
+        <div class="room-title">${room.name}</div>
+        <div class="room-count">${participantCount}/${room.maxParticipants}</div>
+      </div>
+      <div class="room-info">
+        <div class="room-subject">
+          <i class="fas fa-book"></i> ${room.subject}
+        </div>
+        <div class="room-subject">
+          <i class="fas fa-user"></i> Created by: ${room.creator}
+        </div>
+        <div class="room-id">ID: ${room.id}</div>
+      </div>
+      <button class="join-room-btn" data-room-id="${room.id}">
+        <i class="fas fa-door-open"></i> Join Room
+      </button>
+    `;
+    
+    roomsList.appendChild(roomCard);
+  });
+  
+  // Add event listeners to join buttons
+  document.querySelectorAll('.join-room-btn[data-room-id]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const roomId = this.getAttribute('data-room-id');
+      document.getElementById('joinRoomId').value = roomId;
+      showNotification('Room ID copied to join form');
+    });
+  });
+}
+
+// Render chat messages
+function renderChatMessages() {
+  const chatMessages = document.getElementById('chatMessages');
+  const roomId = currentRoom?.id;
+  
+  if (!roomId || !messages[roomId]) {
+    chatMessages.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.9rem;">No messages yet. Start the conversation!</p>';
+    return;
+  }
+  
+  chatMessages.innerHTML = '';
+  
+  messages[roomId].forEach(msg => {
+    const messageDiv = document.createElement('div');
+    
+    if (msg.type === 'system') {
+      messageDiv.className = 'message';
+      messageDiv.style.background = 'rgba(148, 163, 184, 0.1)';
+      messageDiv.style.alignSelf = 'center';
+      messageDiv.style.maxWidth = '95%';
+      messageDiv.style.textAlign = 'center';
+      messageDiv.style.color = '#94a3b8';
+      messageDiv.style.fontStyle = 'italic';
+      messageDiv.style.fontSize = '0.9rem';
+      messageDiv.innerHTML = `
+        <div class="message-content">${msg.text}</div>
+        <div class="message-time" style="font-size: 0.75rem;">${formatTime(msg.timestamp)}</div>
+      `;
+    } else {
+      const isSentByMe = msg.sender === currentParticipant;
+      messageDiv.className = `message ${isSentByMe ? 'sent' : 'received'}`;
+      
+      messageDiv.innerHTML = `
+        <div class="message-header">
+          <div class="message-sender">${msg.sender}</div>
+          <div class="message-time">${formatTime(msg.timestamp)}</div>
+        </div>
+        <div class="message-content">${escapeHtml(msg.text)}</div>
+      `;
+    }
+    
+    chatMessages.appendChild(messageDiv);
+  });
+  
+  // Scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Render participants
+function renderParticipants() {
+  const participantsList = document.getElementById('participantsList');
+  const roomId = currentRoom?.id;
+  
+  if (!roomId || !participants[roomId]) {
+    participantsList.innerHTML = '<span style="color: #94a3b8; font-size: 0.9rem;">No participants</span>';
+    return;
+  }
+  
+  participantsList.innerHTML = '';
+  
+  participants[roomId].forEach(participant => {
+    const tag = document.createElement('span');
+    tag.className = `participant-tag ${participant === currentParticipant ? 'you' : ''}`;
+    tag.innerHTML = `
+      <i class="fas fa-user"></i>
+      ${participant} ${participant === currentParticipant ? '(You)' : ''}
+    `;
+    participantsList.appendChild(tag);
+  });
+  
+  // Update participant count
+  document.getElementById('participantCount').textContent = `(${participants[roomId].length} participants)`;
+}
+
+// Format time
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Show notification
+function showNotification(message, type = 'success') {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.style.display = 'block';
+  
+  // Set color based on type
+  if (type === 'error') {
+    notification.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+  } else if (type === 'warning') {
+    notification.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+  } else {
+    notification.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+  }
+  
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 3000);
+}
+
+// Copy to clipboard
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showNotification('Copied to clipboard!');
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    showNotification('Copied to clipboard!');
+  });
+}
+
+// Enter chat room
+function enterChatRoom(room, participantName) {
+  currentRoom = room;
+  currentParticipant = participantName;
+  
+  // Update UI
+  document.getElementById('chatRoomTitle').textContent = room.name;
+  document.getElementById('chatContainer').classList.add('active');
+  
+  // Scroll chat container into view on mobile
+  if (window.innerWidth < 768) {
+    document.getElementById('chatContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  // Render chat
+  renderChatMessages();
+  renderParticipants();
+  
+  // Auto-refresh chat every 2 seconds
+  if (window.chatRefreshInterval) {
+    clearInterval(window.chatRefreshInterval);
+  }
+  
+  window.chatRefreshInterval = setInterval(() => {
+    if (currentRoom) {
+      loadRooms(); // Reload data
+      renderChatMessages();
+      renderParticipants();
+    }
+  }, 2000);
+  
+  showNotification(`Welcome to ${room.name}!`, 'success');
+}
+
+// Leave chat room
+function leaveChatRoom() {
+  if (!currentRoom || !currentParticipant) return;
+  
+  const roomId = currentRoom.id;
+  const roomIndex = rooms.findIndex(r => r.id === roomId);
+  
+  if (roomIndex !== -1) {
+    // Remove participant
+    const participantIndex = rooms[roomIndex].participants.indexOf(currentParticipant);
+    if (participantIndex !== -1) {
+      rooms[roomIndex].participants.splice(participantIndex, 1);
+      participants[roomId] = participants[roomId].filter(p => p !== currentParticipant);
+    }
+    
+    // Add leave message
+    addSystemMessage(roomId, `${currentParticipant} left the room.`);
+    
+    // If room is empty, remove it
+    if (rooms[roomIndex].participants.length === 0) {
+      setTimeout(() => {
+        if (rooms[roomIndex].participants.length === 0) {
+          rooms.splice(roomIndex, 1);
+          delete messages[roomId];
+          delete participants[roomId];
+        }
+        saveRooms();
+        renderActiveRooms();
+      }, 300000); // Remove after 5 minutes if still empty
+    }
+    
+    saveRooms();
+  }
+  
+  // Clear chat refresh interval
+  if (window.chatRefreshInterval) {
+    clearInterval(window.chatRefreshInterval);
+  }
+  
+  // Reset UI
+  currentRoom = null;
+  currentParticipant = null;
+  document.getElementById('chatContainer').classList.remove('active');
+  document.getElementById('chatInput').value = '';
+  
+  // Scroll back to top on mobile
+  if (window.innerWidth < 768) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  showNotification('You left the room', 'warning');
+}
+
+// Initialize app
+function initApp() {
+  loadRooms();
+  renderActiveRooms();
+  setupEventListeners();
+  
+  // Check if we're already in a room (from previous session)
+  const savedRoomId = localStorage.getItem('currentRoomId');
+  const savedParticipant = localStorage.getItem('currentParticipant');
+  
+  if (savedRoomId && savedParticipant) {
+    const room = rooms.find(r => r.id === savedRoomId);
+    if (room && room.participants.includes(savedParticipant)) {
+      enterChatRoom(room, savedParticipant);
+    } else {
+      localStorage.removeItem('currentRoomId');
+      localStorage.removeItem('currentParticipant');
+    }
+  }
+  
+  // Fix iOS viewport issues
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+    document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+  }
+}
+
+// Setup event listeners
+function setupEventListeners() {
+  // Create room button
+  document.getElementById('createRoomBtn').addEventListener('click', () => {
+    const roomName = document.getElementById('roomName').value.trim();
+    const creatorName = document.getElementById('creatorName').value.trim();
+    const subject = document.getElementById('roomSubject').value;
+    const password = document.getElementById('roomPassword').value.trim();
+    const maxParticipants = document.getElementById('maxParticipants').value;
+    const description = document.getElementById('roomDescription').value.trim();
+    
+    if (!roomName || !creatorName) {
+      showNotification('Please fill in all required fields', 'error');
+      return;
+    }
+    
+    if (roomName.length < 3) {
+      showNotification('Room name must be at least 3 characters', 'error');
+      return;
+    }
+    
+    const roomData = {
+      name: roomName,
+      creator: creatorName,
+      subject: subject,
+      password: password || null,
+      maxParticipants: maxParticipants,
+      description: description
+    };
+    
+    const room = createRoom(roomData);
+    
+    // Show room ID
+    document.getElementById('displayRoomId').textContent = room.id;
+    document.getElementById('displayRoomPassword').textContent = room.password || 'No password (Public)';
+    document.getElementById('roomIdDisplay').classList.add('active');
+    
+    // Clear form
+    document.getElementById('roomName').value = '';
+    document.getElementById('roomDescription').value = '';
+    document.getElementById('roomPassword').value = '';
+    
+    showNotification(`Room "${roomName}" created successfully!`, 'success');
+    renderActiveRooms();
+    
+    // Auto-join the created room
+    setTimeout(() => {
+      enterChatRoom(room, creatorName);
+      localStorage.setItem('currentRoomId', room.id);
+      localStorage.setItem('currentParticipant', creatorName);
+    }, 1000);
+  });
+  
+  // Join room button
+  document.getElementById('joinRoomBtn').addEventListener('click', () => {
+    const roomId = document.getElementById('joinRoomId').value.trim().toUpperCase();
+    const password = document.getElementById('joinRoomPassword').value.trim();
+    const participantName = document.getElementById('participantName').value.trim();
+    
+    if (!roomId || !participantName) {
+      showNotification('Please fill in all required fields', 'error');
+      return;
+    }
+    
+    const result = joinRoom(roomId, password, participantName);
+    
+    if (result.success) {
+      document.getElementById('joinRoomId').value = '';
+      document.getElementById('joinRoomPassword').value = '';
+      document.getElementById('participantName').value = '';
+      
+      enterChatRoom(result.room, participantName);
+      localStorage.setItem('currentRoomId', roomId);
+      localStorage.setItem('currentParticipant', participantName);
+    } else {
+      showNotification(result.error, 'error');
+    }
+  });
+  
+  // Leave chat button
+  document.getElementById('leaveChatBtn').addEventListener('click', leaveChatRoom);
+  
+  // Send message
+  document.getElementById('sendMessageBtn').addEventListener('click', () => {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (message && currentRoom && currentParticipant) {
+      addChatMessage(currentRoom.id, currentParticipant, message);
+      input.value = '';
+      renderChatMessages();
+      
+      // Auto-scroll
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+  
+  // Send message on Enter key
+  document.getElementById('chatInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      document.getElementById('sendMessageBtn').click();
+    }
+  });
+  
+  // Refresh rooms button
+  document.getElementById('refreshRoomsBtn').addEventListener('click', () => {
+    loadRooms();
+    renderActiveRooms();
+    showNotification('Rooms list refreshed', 'success');
+  });
+  
+  // Password toggle
+  document.getElementById('passwordToggle').addEventListener('click', function() {
+    const passwordInput = document.getElementById('roomPassword');
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  });
+  
+  document.getElementById('joinPasswordToggle').addEventListener('click', function() {
+    const passwordInput = document.getElementById('joinRoomPassword');
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  });
+  
+  // Copy buttons
+  document.querySelectorAll('.copy-btn[data-target]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const text = document.getElementById(targetId).textContent;
+      copyToClipboard(text);
+    });
+  });
+  
+  // Quick join buttons
+  document.querySelectorAll('.copy-btn[data-room]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const roomId = this.getAttribute('data-room');
+      document.getElementById('joinRoomId').value = roomId;
+      showNotification(`Room ID "${roomId}" added to form`);
+    });
+  });
+  
+  // Save participant name when typing
+  document.getElementById('participantName').addEventListener('input', function() {
+    if (this.value.trim()) {
+      localStorage.setItem('lastParticipantName', this.value.trim());
+      document.getElementById('creatorName').value = this.value.trim();
+    }
+  });
+  
+  document.getElementById('creatorName').addEventListener('input', function() {
+    if (this.value.trim()) {
+      localStorage.setItem('lastParticipantName', this.value.trim());
+      document.getElementById('participantName').value = this.value.trim();
+    }
+  });
+  
+  // Load last participant name
+  const lastParticipantName = localStorage.getItem('lastParticipantName');
+  if (lastParticipantName) {
+    document.getElementById('participantName').value = lastParticipantName;
+    document.getElementById('creatorName').value = lastParticipantName;
+  }
+  
+  // Fix iOS input focus issues
+  document.addEventListener('touchstart', function() {}, {passive: true});
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    if (currentRoom && currentParticipant) {
+      localStorage.setItem('currentRoomId', currentRoom.id);
+      localStorage.setItem('currentParticipant', currentParticipant);
+    }
+  });
+  
+  // Handle orientation change
+  window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  });
+}
+
+// Initialize when page loads
+window.addEventListener('DOMContentLoaded', initApp);
+
+// Fix viewport on resize
+window.addEventListener('resize', function() {
+  document.body.style.overflowX = 'hidden';
+});
+</script>
+</body>
+  </html>
